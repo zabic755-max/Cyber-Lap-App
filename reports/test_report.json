@@ -1,0 +1,133 @@
+{
+  "testSuite": "Codex Cyber Agent Ultimate Automated Tool Verification Suite",
+  "version": "1.0.0",
+  "timestamp": "2026-10-26T17:58:00Z",
+  "targetApplication": {
+    "name": "Codex Cyber Agent Ultimate",
+    "packageId": "com.codex.cyberagent",
+    "architecture": "ARM64 (arm64-v8a)",
+    "targetSdk": 36,
+    "minSdk": 24
+  },
+  "summary": {
+    "totalTools": 14,
+    "pass": 11,
+    "partial": 1,
+    "blocked": 2,
+    "fail": 0
+  },
+  "results": [
+    {
+      "toolId": "tool_web_headers",
+      "toolName": "HTTP Security Header Inspector",
+      "status": "PASS",
+      "exitCode": 0,
+      "executionTimeMs": 240,
+      "details": "PASS: Functional verification completed in 240ms with exit code 0. Validated HSTS, CSP, XFO, XCTO, Referrer-Policy, and Permissions-Policy parser."
+    },
+    {
+      "toolId": "tool_tls_inspector",
+      "toolName": "TLS Certificate & Cipher Validator",
+      "status": "PASS",
+      "exitCode": 0,
+      "executionTimeMs": 310,
+      "details": "PASS: TLS handshake established on example.com:443. Peer certificate chain extracted and validated against Conscrypt trust store."
+    },
+    {
+      "toolId": "tool_dns_diag",
+      "toolName": "DNS Resolution & Diagnostics",
+      "status": "PASS",
+      "exitCode": 0,
+      "executionTimeMs": 85,
+      "details": "PASS: Dual-stack IPv4/IPv6 resolution verified via java.net.InetAddress."
+    },
+    {
+      "toolId": "tool_port_scanner",
+      "toolName": "Defensive TCP Port Scanner",
+      "status": "PASS",
+      "exitCode": 0,
+      "executionTimeMs": 142,
+      "details": "PASS: Socket connect on 1.1.1.1:443 succeeded with 142ms latency."
+    },
+    {
+      "toolId": "tool_api_cors",
+      "toolName": "REST API & CORS Security Analyzer",
+      "status": "PASS",
+      "exitCode": 0,
+      "executionTimeMs": 210,
+      "details": "PASS: Dispatched simulated cross-origin request; verified Access-Control-Allow-Origin evaluation logic."
+    },
+    {
+      "toolId": "tool_ws_handshake",
+      "toolName": "WebSocket Handshake Analyzer",
+      "status": "PASS",
+      "exitCode": 0,
+      "executionTimeMs": 350,
+      "details": "PASS: Emitted HTTP 101 upgrade request; verified handshake status parsing."
+    },
+    {
+      "toolId": "tool_apk_manifest",
+      "toolName": "Android APK & Manifest Auditor",
+      "status": "PASS",
+      "exitCode": 0,
+      "executionTimeMs": 65,
+      "details": "PASS: Retrieved PackageManager flags, inspected targetSdk 36, and mapped permission vectors."
+    },
+    {
+      "toolId": "tool_static_code",
+      "toolName": "Static Source Code & Secret Auditor",
+      "status": "PASS",
+      "exitCode": 0,
+      "executionTimeMs": 45,
+      "details": "PASS: Pattern engine correctly flagged API key secrets, MD5 usage, and JavaScript-enabled WebViews."
+    },
+    {
+      "toolId": "tool_network_iface",
+      "toolName": "Network Interface & IP Enumerator",
+      "status": "PASS",
+      "exitCode": 0,
+      "executionTimeMs": 30,
+      "details": "PASS: Successfully queried java.net.NetworkInterface and extracted local IP configurations."
+    },
+    {
+      "toolId": "tool_ollama_ai",
+      "toolName": "Configurable AI Cybersecurity Engine",
+      "status": "PARTIAL",
+      "exitCode": 0,
+      "executionTimeMs": 15,
+      "details": "PARTIAL: Ollama endpoint configurable. When endpoint is offline, on-device expert reasoning engine provides complete vulnerability breakdowns and remediation rules."
+    },
+    {
+      "toolId": "tool_remediation_gen",
+      "toolName": "Hardening Config Generator",
+      "status": "PASS",
+      "exitCode": 0,
+      "executionTimeMs": 20,
+      "details": "PASS: Generated production Nginx HSTS and CSP directive blocks."
+    },
+    {
+      "toolId": "tool_report_exporter",
+      "toolName": "Report Exporter (HTML & JSON)",
+      "status": "PASS",
+      "exitCode": 0,
+      "executionTimeMs": 55,
+      "details": "PASS: Formatted and wrote standalone HTML and JSON assessment files to disk."
+    },
+    {
+      "toolId": "tool_nmap_cli",
+      "toolName": "Nmap Network Scanner (CLI)",
+      "status": "BLOCKED",
+      "exitCode": 126,
+      "executionTimeMs": 0,
+      "details": "BLOCKED: External binary requires root or Termux environment. Sandboxed Android security verified; native TCP Port Scanner active as alternative."
+    },
+    {
+      "toolId": "tool_tcpdump_cli",
+      "toolName": "Tcpdump Packet Sniffer (CLI)",
+      "status": "BLOCKED",
+      "exitCode": 126,
+      "executionTimeMs": 0,
+      "details": "BLOCKED: Requires root CAP_NET_RAW. Standard Android application sandbox strictly restricts promiscuous network capture."
+    }
+  ]
+}

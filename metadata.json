@@ -1,0 +1,6 @@
+{
+  "name": "Codex Cyber Agent Ultimate",
+  "description": "Modular AI cybersecurity agent and comprehensive security diagnostic suite with tool adapters, self-test verification, and multi-vector auditing.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
