@@ -391,6 +391,21 @@ class CyberAgentViewModel(application: Application) : AndroidViewModel(applicati
         return json
     }
 
+    fun exportMarkdownReport(): String {
+        val target = _uiState.value.targetUrl
+        val score = _uiState.value.webScanResult?.score ?: _uiState.value.overallSecurityScore
+        val md = ReportExporter.generateMarkdownReport(
+            target = target,
+            score = score,
+            vulnerabilities = _uiState.value.allVulnerabilities,
+            webResult = _uiState.value.webScanResult
+        )
+        val file = ReportExporter.saveReportFile(getApplication(), md, "codex_security_report.md")
+        _uiState.value = _uiState.value.copy(statusMessage = "Markdown Report saved to: ${file.name}")
+        addLog("Exported Markdown report (${file.length()} bytes)")
+        return md
+    }
+
     fun shareCurrentReport() {
         val target = _uiState.value.targetUrl
         val summary = "Codex Cyber Agent Ultimate Security Audit for $target\n" +

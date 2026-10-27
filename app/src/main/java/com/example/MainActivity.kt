@@ -270,6 +270,7 @@ fun CyberAgentApp(viewModel: CyberAgentViewModel = viewModel()) {
                     state = state,
                     onExportHtml = { viewModel.exportHtmlReport() },
                     onExportJson = { viewModel.exportJsonReport() },
+                    onExportMarkdown = { viewModel.exportMarkdownReport() },
                     onShareReport = { viewModel.shareCurrentReport() }
                 )
                 CyberNavScreen.SETTINGS -> SettingsScreen(

@@ -251,6 +251,25 @@ class ToolRegistry(
             )
         )
 
+        // 13. Threat Intelligence & CVE Database
+        register(
+            SecurityTool(
+                id = "tool_threat_intel",
+                name = "Offline Threat Intelligence & CVE Engine",
+                category = "Threat Intelligence",
+                description = "Queries built-in offline CVE, CWE, and OWASP intelligence catalog for attack vectors and hardening code.",
+                executablePath = "com.example.service.CveThreatDatabase#search",
+                version = "2.0.0 (Threat Intel Catalog)",
+                dependencies = listOf("CveThreatDatabase"),
+                inputParameters = listOf(
+                    ToolParameter("query", "Search Term / CWE / Topic", "HSTS", "Vulnerability, CWE, or vector keyword", true)
+                ),
+                outputFormat = "Threat Intel Record & Remediation",
+                availability = ToolAvailability.AVAILABLE_NATIVE,
+                documentation = "Instant offline search across OWASP Web, API, and Mobile vectors with technical attack descriptions and remediation code."
+            )
+        )
+
         // 13. External CLI Tool: Nmap (Raw Sockets)
         register(
             SecurityTool(
@@ -428,6 +447,19 @@ class ToolRegistry(
                     val file = ReportExporter.saveReportFile(context, html, "audit_$target.html")
                     val elapsed = System.currentTimeMillis() - startTime
                     ToolExecutionResult(tool.id, tool.name, "SUCCESS", 0, "Report successfully generated.\nFile: ${file.absolutePath}\nSize: ${file.length()} bytes", "", elapsed)
+                }
+                "tool_threat_intel" -> {
+                    val query = params["query"] ?: "HSTS"
+                    val hits = CveThreatDatabase.search(query)
+                    val out = if (hits.isEmpty()) {
+                        "No threat entries found matching '$query'."
+                    } else {
+                        hits.joinToString("\n\n---\n\n") {
+                            "[${it.cweId}] ${it.title} (${it.severity.label})\nCategory: ${it.category}\n\nDescription:\n${it.description}\n\nAttack Vector:\n${it.attackVector}\n\nRemediation:\n${it.remediation}\n\nCode Snippet:\n${it.codeExample}"
+                        }
+                    }
+                    val elapsed = System.currentTimeMillis() - startTime
+                    ToolExecutionResult(tool.id, tool.name, "SUCCESS", 0, out, "", elapsed)
                 }
                 else -> {
                     ToolExecutionResult(tool.id, tool.name, "ERROR", 1, "", "Execution handler not implemented for ${tool.id}", System.currentTimeMillis() - startTime)
